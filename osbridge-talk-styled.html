@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Trick Out Your Terminal: A Command-Line Introduction</title>
+    <link rel="stylesheet" href="./styled.css">
+</head>
+
+<body>
+<section class="main">
+    <header>
+        <h1>Trick Out your Terminal</h1>
+        <h2>A Presentation by <a href="http://www.llkats.com">Lydia Kats</a></h2>
+        <h3>Open Source Bridge, Portland, OR</h3>
+        <h3>Wednesday, June 24th, 2015</h3>
+    </header>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="trick-out-your-terminal">Trick Out Your Terminal</h1>
+        </div>
+        <div class="notes">Welcome to the talk!</div>
+    </article>
+
+    <article class="slide">
+        <div class="content has-background-image" id="obligatory-cat-pic">
+            <p class="image-caption">obligatory picture of my cat Molly looking super cute</p>
+        </div>
+        <div class="notes">
+            <p class="note">Here is my obligatory cat pic.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <p><img src="./pics/echo-hi.gif" height="352" width="476" alt="inline"></p>
+        </div>
+        <div class="notes">
+            <p class="note">The goals for my talk are two-fold:</p>
+            <p class="note">1. First, I want to give beginners to the terminal a sense of what it&#39;s like to work with the command-line, and of the power behind the cursor. Even if you don&#39;t get or remember everything right away, just getting a brief glimpse of everything that&#39;s available will be enough so that as you explore, you&#39;ll have a handle of things to search for and get a better sense of.</p>
+            <p class="note">2. Second, I want to give everyone, beginners through experts, an idea of the sorts of customization you can do with the command line, to make it more communicative, to really make it your own.</p>
+            <p class="note">I'll start with some history of computer interfaces, then start talking about three different shells (different programs for issuing text commands), and walk through different usages of each. There&#39;s a lot of information, and I will be sure to post my slides, my notes, my sources, and you can always ask me for more info at the end.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content has-background-image" id="once-in-a-lifetime">
+            <p class="image-caption">a screenshot of the music video from the Talking Heads song 'Once in a Lifetime'</p>
+            <h1 id="a-brief-history-of-computer-interfaces">a brief history of <strong>computer interfaces</strong></h1>
+        </div>
+        <div class="notes">
+            <p class="note">Before I dive in, I want to explain my motivations for starting with the history of the development of computer interaction. Engineers didn&#39;t set out to make opaque and frustrating interfaces. these things evolved out of technological constraints of the time, which included extremely limited computer speed and power. Those original machines were huge, expensive, they were centralized and access was strictly controlled. They were far less powerful than any smartphone we might carry around in our bags today. </p>
+            <p class="note">If you look at the command line and think, &quot;this is not my beautiful desktop, these are not my beautiful programs&quot; then understanding how people interacted with those first machines might help contextualize the reason for the terse, short commands and limited interface.</p>
+            <p class="note">So, how did we get here?</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content has-background-image" id="dood-at-a-computor">
+            <p class="image-caption">an engineer sitting at the console of an IBM 7094</p>
+            <h1 id="the-punch-card-era">the <strong>punch card</strong> era</h1>
+        </div>
+        <div class="notes">
+            <p class="note">I&#39;m going to skip the ancient days of vaccuum tube computing and jump in to computers in the '50s and '60s, when the way that engineers wrote code was on punch cards</p>
+            <p class="note">Back in the day, before widespread personal computing, computers were big centralized machines.</p>
+            <p class="note">Here you see someone sitting at the console of an IBM 7094. you can the punch card reader to the right of the operator. Along the lefthand wall are cabinets full of core memory (which is wild, whole cabinets just for memory). drives and disks and control units in the center and filling the room behind.</p>
+            <p class="note">That punch card reader is where engineers would load stacks of punch cards representing their programs.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="the-punch-card-era">the <strong>punch card</strong> era</h1>
+            <p><img src="./img/ibm-029-keypunch.jpg" width="400" alt="an IBM 029 keypunch machine"></p>
+        </div>
+        <div class="notes">
+            <p class="note">To program with punch cards, engineers wrote out their programs on special forms and translated these forms into decks, which in turn were translated into stacks of punch cards.</p>
+            <p class="note">This picture is of a specialized typewriter for creating punch cards</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="the-punch-card-era">the <strong>punch card</strong> era</h1>
+            <p><img src="./img/800px-DamagedPunchedCard.jpg" width="400" alt="a hand holding a damaged punch card"></p>
+        </div>
+        <div class="notes">
+            <p class="note">An image of a slightly mangled punch card.</p>
+            <p class="note">These punch cards were sorted into stacks and then to run the program, they would be fed into the reader, which would send the programs to the computer, and then results printed out later.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <blockquote>
+                <p class="quote">&quot;Users had to accommodate computers rather than the other way around.&quot;</p>
+                <p class="attribution">&mdash;Raymond and Landley</p>
+            </blockquote>
+        </div>
+        <div class="notes">
+            <p class="note">In a book on Unix Usability, Eric Steven Raymond and Rob W. Landley wrote, &quot;Users had to accommodate computers rather than the other way around; user interfaces were considered overhead, and software was designed to keep the processor at maximum utilization with as little overhead as possible.</p>
+            <p class="note">...The turnaround time for a single job often spanned entire days.&quot;</p>
+            <p class="note">That's a really long time to go before you find out that you got a compiler error from, say, a forgotten semicolon</p>
+            <p class="note">In a day and age where user interface, UI, UX, and design are all highly valued and discussed, the fact that computing power was limited to the point of considering user interface as overhead is just a completely foreign mindset.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <p><img src="./img/punchcard.gif" width="400" alt="another punch card in black and white"></p>
+        </div>
+        <div class="notes">
+            <p class="note">To move on from punch cards, there were several innovations that were key to the evolution of computer interfaces. </p>
+            <p class="note">First, batch monitors were programs that were developed to run on computers constantly and be available to provide services to programs as they were executed. They also could do error reporting and give better messaging when errors occurred.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <p><img src="./img/ASR-33_at_CHM.agr.jpg" width="400" alt="An old teleprinter machine."></p>
+        </div>
+        <div class="notes">
+            <p class="note">Then teleprinters were hooked up to these batch monitors. Teleprinters were like electronic typewriters crossed with telegrams. They&#39;d been around since the early 20th century, and were originally used to communicate human-to-human, but with the advent of batch monitor programs, a teleprinter could be used to issue commands to a computer and receive output in turn.</p>
+            <p class="note">They were still kind of clunky and inefficient, not to mention all the paper waste just printing out commands, but it was much quicker than the punch card system. Now people could receive feedback in almost real time.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <p><img src="./img/DEC_VT100_terminal.jpg" width="400" alt="inline"></p>
+        </div>
+        <div class="notes">
+            <p class="note">Finally, video displays replaced teleprinters in the mid &#39;70&#39;s. now this finally looks kind of familiar, like what many of us would actually identify as computers today.</p>
+            <p class="note">But even though it looks a lot like a computer, this was not actually a computer. this picture is of a <strong>terminal</strong>. If you disconnected it and moved it elsewhere, it wouldn&#39;t be able to do anything, because it had no hard drives, memory, or processors. This was simply an interface to the actual computer itself. </p>
+            <p class="note">To use a computer, you had to go and sit at a terminal like this one, type in your commands, and receive the output to the display.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content" id="bash-terminal-screenshot">
+            <p>a screenshot of some command line output in the <code>bash</code> shell</p>
+        </div>
+        <div class="notes">
+            <p class="note">And that&#39;s basically the invention of the command line we know and love today. Compared to punch cards and teleprinters, they are way faster! You get immediate feedback! You can even change things on the fly in response to the output you get! Neat!</p>
+            <p class="note">But <strong>is</strong> a tradeoff.</p>
+            <p class="note">Raymond and Landley note that &quot;These interfaces still placed a relatively heavy mnemonic load on the user, requiring a serious investment of effort and learning time to master.&quot;</p>
+            <p class="note">...and that&#39;s still pretty true today</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Desktop-Linux-Mint.png/1280px-Desktop-Linux-Mint.png" alt="a screenshot of Linux Mint with various programs in windows"></p>
+        </div>
+        <div class="notes">
+            <p class="note">The Graphical User Interface that we&#39;re all familiar with was developed as an alternative to the command line interface.</p>
+            <p class="note">It was a reaction to the steep learning curve perceived around the command line. When you use a GUI, you directly interact with the graphical representations of files and actions. </p>
+            <p class="note">These interfaces were enabled by the inventions of video displays and input devices like the mouse. but the command line came first, a terse interface for a more technologically limited time.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="emulation-station">emulation station</h1>
+            <p>
+                <img id="terminal-icon" src="http://www.icreatemagazine.com/wp-content/uploads/2014/03/Terminal.png" alt="os x terminal icon">
+                <img id="command-icon"  src="http://3.bp.blogspot.com/-C_6qf5XBCho/TwQPDaYDhRI/AAAAAAAAAaM/qiwzvMfz6Is/s1600/command-prompt-glossy.png" alt="windows command prompt icon">
+            </p>
+        </div>
+        <div class="notes">
+            <p class="note">With the rise of personal computing, we now have our interfaces attached directly to our computers.</p>
+            <p class="note">&quot;Terminals&quot; still exist, but they aren&#39;t physical pieces of hardware anymore. They are now programs that live inside the GUI, emulating the same sort of experience as older physical terminals. The command line program for Mac OS is even called &quot;Terminal&quot;. On Windows, the similar terminal emulator program is called &quot;Command Prompt&quot;.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="so-but-why"><strong>so but why</strong></h1>
+        </div>
+        <div class="notes">
+            <p class="note">And if we have perfectly serviceable graphical interfaces in the modern era, why learn something arcane and kind of unapproachable like the command line?</p>
+            <p class="note">Eric Raymond, in The Art of Unix Programming, particularly takes pains to note that the command line really shines when novice or casual users become more adept and perform more skilled tasks with computers.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <p><img src="http://media.giphy.com/media/5xtDarwenxEoFeIMEM0/giphy.gif" alt="an animated gif displaying homebrew installation output" height="400"></p>
+            <p><a href="http://brew.sh/">http://brew.sh/</a></p>
+        </div>
+        <div class="notes">
+            <p class="note">Automation is your friend, and can be a lot easier to write on the command line. Tasks like enumeration or find-and-replace tasks, which can be kind of tedious, become an interesting challenge when you can write a program to do it for you.</p>
+            <p class="note">For example, if you want to install a new application, you could install it by hand, or use a package manager like Homebrew for Mac OS to install, manage dependencies, update, and uninstall things for you with just a couple short commands.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="aesthetics">aesthetics</h1>
+            <h2 id="love-the-environment-you-re-in"><em>love the environment you&#39;re in</em></h2>
+        </div>
+        <div class="notes">
+            <p class="note">But I also want to make the point that we don&#39;t have to take the command line as-is. Even though there are some really good reasons for why the command line is the way that it is, it also can still be better. It&#39;s terse to the point of being wholly unintelligible. We spend a lot of time with our tools, and the command line doesn&#39;t have to be a hostile or unaccomodating environment. It just takes a little more effort and a little more learning to make it friendly and expressive.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <p><img src="https://raw.githubusercontent.com/brianleroux/quick-vim/master/screen.jpg" alt="inline"></p>
+            <p>@brianleroux, <a href="https://github.com/brianleroux/quick-vim">https://github.com/brianleroux/quick-vim</a></p>
+        </div>
+        <div class="notes">
+            <p class="note">For example, I recently discovered my friend&#39;s vim configuration. vim is a complex, powerful text editor that can be accessed from the command line. I&#39;d mistaken it for some time as Sublime Text, a desktop GUI app, which is what I use to do the majority of my coding. If I&#39;d known vim could look like this, I might&#39;ve invested more time in learning it by now.</p>
+            <p class="note">Personally, I find that it&#39;s not good enough to be efficient. I want to be comfortable with the stuff I work with. I want to open a window and think, &quot;ahhh this is a place where I want to build things&quot;</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <p><img src="./prompts/jllord.png" alt="inline"></p>
+            <p>@jllord</p>
+        </div>
+        <div class="notes">
+            <p class="note">I asked people on twitter to send me screenshots of their terminal customizations, and I got some really amazing responses, from clean and zen-line command lines like Jessica Lord&#39;s...</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <p><img src="./prompts/zsh-randallagordon.jpg" alt="inline"></p>
+            <p>@randallagordon</p>
+        </div>
+        <div class="notes">
+            <p class="note">...to super complex and informative prompts like Randall Gordon&#39;s.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <p><img src="./prompts/bash-jennschiffer.png" alt="inline"></p>
+            <p>@jennschiffer</p>
+        </div>
+        <div class="notes">
+            <p class="note">There&#39;s a lot to learn on the command line, from everyday usage to tricking it out with the filepath, git status, username, and emoji like Jenn Schiffer did.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <p><img src="./img/turtle-shell.jpg" alt="fit 85%"></p>
+            <h1 id="shells">shells</h1>
+        </div>
+        <div class="notes">
+            <p class="note">So let&#39;s get started with shells.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="terminals-and-command-lines-and-shells"><strong>terminals</strong> and <strong>command lines</strong> and <strong>shells</strong></h1>
+            <h3 id="oh-my"><em>oh my</em></h3>
+        </div>
+        <div class="notes">
+            <p class="note">I&#39;ve been talking alot about terminals and command lines, so what the heck are shells now?</p>
+            <p class="note">These terms are often used rather interchangeably. The terminal, as you remember, is that physical device that they used to interface with computers back in the day. Nowadays it&#39;s the program that we use to emulate that old-school interface.</p>
+            <p class="note">The command-line interpreter (CLI), or the shell, is the application that runs inside the terminal itself. It sits there waiting for input, executes that input, and returns the results, like a control center or a conduit.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="what-is-a-shell">what is a shell?</h1>
+            <p><img src="./pics/fake-os-desktop.png" alt="inline"></p>
+        </div>
+        <div class="notes">
+            <p class="note">so nowadays, instead of that physical terminal interface that I showed you before, the terminal is an emulator program you can open on your desktop GUI</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="what-is-a-shell">what is a shell?</h1>
+            <p><img src="./pics/fake-os-desktop-terminal.png" alt="inline"></p>
+        </div>
+        <div class="notes">
+            <p class="note">The &quot;shell&quot; is the software that runs inside the terminal.</p>
+            <p class="note">One of the most common shells is <code>bash</code>.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="beginning-bash"><strong>beginning</strong>  <code>bash</code></h1>
+        </div>
+        <div class="notes">
+            <p class="note">Let&#39;s take some first steps with <code>bash</code>.</p>
+            <p class="note">I had some more history of the development of shells here, but I&#39;ve edited it out in the interest of time. For now, I just want to note that one of the most widespread shells is called <code>bash</code>. It was created by an engineer named Brian Fox in 1989, when he was working for Richard Stallman&#39;s Free Software Foundation.</p>
+            <p class="note"><code>bash</code> inherits a lot of characteristics from earlier shells like the Bourne shell, c shell, the korn shell, and even the original <code>sh</code> shell that was shipped with the first version of unix. <code>bash</code> was first shipped with Unix version 7.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 class="warning"><img src="http://cliparts.co/cliparts/pio/59r/pio59rnaT.png" alt="inline"> caution <img src="http://cliparts.co/cliparts/pio/59r/pio59rnaT.png" alt="inline"></h1>
+            <h2 id="commands-do-exactly-what-you-tell-them-to" class="warnings">commands do exactly what you tell them to</h2>
+            <h2 id="only-download-from-trusted-sources" class="warnings">only download from trusted sources</h2>
+        </div>
+        <div class="notes">
+            <p class="note">Before I start showing you commands, I just want to emphasize that it&#39;s well worth the time it takes to understand commands really, really thoroughly before you just enter them into your shell. </p>
+            <p class="note">You can actually tell the computer to do things like delete your entire home directory with just a few characters, and malicious pranksters (aka trolls) might try to trick a newbie with harmful commands. Never copy/paste a command from the internet without understanding precisely what it does.</p>
+            <p class="note">Additionally, some sites will give you a quick command and url to just download things. Only download things from sources that you trust.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="man"><code>man</code></h1>
+<pre><code class="lang-bash">bash-<span class="hljs-number">3.2</span>$ man <span class="hljs-built_in">echo</span>
+ECHO(<span class="hljs-number">1</span>)                   BSD General Commands Manual                  ECHO(<span class="hljs-number">1</span>)
+
+NAME
+ <span class="hljs-built_in">echo</span> -- write arguments to the standard output
+
+SYNOPSIS
+ <span class="hljs-built_in">echo</span> [-n] [string ...]
+
+DESCRIPTION
+ The <span class="hljs-built_in">echo</span> utility writes any specified operands,
+ separated by single blank (` `) characters and
+ followed by a new-line (`\n`) character, to the
+ standard output.
+
+ The following option is available:
+ -n    Do not print the trailing newline character.
+
+[...]
+</code></pre>
+        </div>
+        <div class="notes">
+            <p class="note">Fortunately, there is on-board documentation for every command in right in the shell. If you want to read the documentation for a command, type &quot;m-a-n&quot;, short for manual, followed by a space, followed by the command name. This is some sample output for the &quot;echo&quot; command.</p>
+            <p class="note">You can also google commands for help, I do that a lot as well, since the documentation inside the shells can be a bit dry or dense</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="beginning-bash"><strong>beginning</strong>  <code>bash</code></h1>
+            <p class="note"><img src="https://dl.dropboxusercontent.com/u/37968874/img/osbridge/bash-usage.gif" alt="inline"></p>
+        </div>
+
+        <div class="notes">
+            <p class="note">Let&#39;s see what it&#39;s like to work in <code>bash</code>.</p>
+            <p class="note">Starting off, this particular default implementation of <code>bash</code> shows the shell we&#39;re using, which is <code>bash</code>, and the version of <code>bash</code> running, 3.2. The dollar sign starts the area where we can type. This whole string of things is called the &quot;prompt&quot;</p>
+            <p class="note">We can type whatever after the prompt; if there&#39;s invalid input, <code>bash</code> gives an error.</p>
+            <p class="note">We can see where we are in our directory by typing in the command <code>pwd</code> and pressing enter. Looks like I&#39;m in my home directory. We can change directories with the command <code>cd</code>.</p>
+            <p class="note">To change directories, I have to type in a valid file path to a folder. Let&#39;s change to the folder (or directory, same thing) where I&#39;ve been developing this talk. <code>~/Dropbox/osbridge</code>.</p>
+            <p class="note">The tilde character is short for my home directory, so the file paths that I type are in relation to that directory. It&#39;s a shortcut so I don&#39;t have to type <code>/Users/lydia</code> the entire time. if I press the &quot;tab&quot; key on an incomplete folder name, <code>bash</code> is smart enough to try to help me out and autocomplete the names and save me some keystrokes.</p>
+            <p class="note">And I can see what&#39;s in a folder by just typing <code>ls</code>, so it prints out the list of most of the things in the folder. If I type <code>ls</code> followed by a valid folder name, I can see what&#39;s inside that folder. <code>ls pics</code> shows all of the images i&#39;m using in my talk.</p>
+            <p class="note">I can make a folder with the command <code>mkdir</code>, followed by the name I want. I&#39;m going to make the folder <code>demo</code>. Then I can <code>cd</code> into that new directory.</p>
+            <p class="note">I can then make a new empty file with the command <code>touch</code>, followed again by the name I want. Running <code>ls</code> again shows that new file is present inside this folder.</p>
+            <p class="note">You might notice me typing the word <code>clear</code> a lot, this is to clear the current window so that my prompt is at the very top. I&#39;m doing this so hopefully everyone can see a little better.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="some-useful-commands">some useful commands</h1>
+            <h2 id="an-incomplete-list">an incomplete list</h2>
+        </div>
+        <div class="notes">
+            <p class="note">So something you might notice is that many of these commands are abbreviations or acronyms.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="pwd-cd-ls"><code>pwd cd ls</code></h1>
+            <h1 id="touch-mkdir-cp-mv"><code>touch mkdir cp mv</code></h1>
+            <h1 id="vi-vim-emacs-nano-pico"><code>vi vim emacs nano pico</code></h1>
+            <h1 id="rm-rmdir-chmod-chown-kill"><code>rm  rmdir  chmod chown  kill</code></h1>
+            <h1 id=""><code>#  ;  .  ..  \  /  *  $  &gt;  &gt;&gt;  |  &amp;  -  --</code></h1>
+            <h1 id="man-cat-meow-sudo-find-grep-ps-aux-echo-scp-ssh-ping"><code>man  cat  sudo  find  grep  echo  scp  ssh  ping</code></h1>
+        </div>
+        <div class="notes">
+            <p class="note">There are a lot of commands and most of them have little shorthand names. many are tiny applications that let you do things like read files, edit files, or log in to servers. there are also a lot of symbols, some of which are familiar from programming, and some are not.</p>
+            <p class="note">and this is just a small sample of all the commands out there</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content has-background-image" id="moment-of-zen">
+            <h1 id="don-t-panic"><strong>don&#39;t panic</strong></h1>
+        </div>
+        <div class="notes">
+            <p class="note">But don&#39;t panic!</p>
+            <p class="note">These things do take some time to learn, much like learning vocabulary in a new language. You get better at it with practice.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="customizing-the-bash-prompt"><strong>customizing</strong> the <code>bash</code> prompt</h1>
+        </div>
+        <div class="notes">
+            <p class="note">And finally, the fun bits: customization. &quot;<code>bash</code> configures its prompt by using the <code>PS1</code> and the <code>PS2</code> environment variables.&quot;, which are system properties that the shell keeps track of. &quot;<code>PS1</code> defines the primary prompt that you will see.&quot;</p>
+            <p class="note">We can type experiments with the prompt right inside the terminal, just by assigning characters to the PS1 prompt. So let&#39;s give it a shot.</p>
+            <p><em>Live demonstration follows.</em></p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="customizing-the-bash-prompt"><strong>customizing</strong> the <code>bash</code> prompt</h1>
+        </div>
+        <div class="notes">
+            <p class="note">The first thing to do is type in <code>capital-P capital-S number-1</code> followed by an <code>=</code> sign, and then start a string, single or double quote doesn&#39;t matter. Followed by... something. Let&#39;s go with a simple smiley face. I&#39;m going to add a space after that, so it&#39;s easier to read commands that I type in after that. Then close the string with a followup quote character.</p>
+            <p class="note"><code>PS1=&quot;:) &quot;</code></p>
+            <p class="note">So, that prompt&#39;s cute. But let&#39;s make it a little more informative. Maybe we could put the user I&#39;m logged in as in the prompt. I can press the <code>up</code> arrow key to get to my last command, and just edit that. </p>
+            <p class="note"><code>bash</code> has special shorthand characters called &quot;escape sequences&quot; that are like environment variables. You can see them all if you run <code>man bash</code>. If I insert the escape sequence <code>\u</code> I get my username. If I insert <code>\h</code>, we see the hostname, which is the name of my computer on the network. And <code>\w</code> gives the current directory, which is what would be output by the command <code>pwd</code>, so we can see where we are.</p>
+            <p class="note">and maybe it&#39;s time for an emoji. anyone have a favorite one?</p>
+            <p class="note"><code>PS1=&quot;\u@\h:\w   &quot;</code></p>
+            <p class="note">Cool, that&#39;s everything. If we cd somewhere, you will see the prompt change accordingly.</p>
+        </div>
+     </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="customization-editing-bashrc"><strong>customization</strong>: editing <code>.bashrc</code></h1>
+        </div>
+        <div class="notes">
+            <p class="note">So right now, this prompt stays the same, but if I open a new <code>bash</code> session, it&#39;ll revert to the old prompt.</p>
+            <p class="note">To make our prompt changes permanent, we have to save this <code>PS1</code> variable inside a configuration file called <code>.bashrc</code></p>
+            <p class="note">This is the file that <code>bash</code> reads when it starts up, to understand what to do and read settings. It&#39;s usually invisible on your computer because the file is started with a dot, and since those are usually configuration files, they&#39;re kept invisible by default.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="customization"><strong>customization</strong></h1>
+            <h1 id="ls-a"><code>ls -A ~</code></h1>
+        </div>
+        <div class="notes">
+            <p class="note">So, if the <code>.bashrc</code> file is invisible, how can we see it? Fortunately, the <code>ls</code> command as an option called <code>-A</code>. We can see that by opening the documentation for <code>ls</code> by using the command <code>man</code> short for manual, followed by <code>ls</code>.</p>
+            <p class="note">Finally, the tilde in that command is a shorthand for your home directory, as I mentioned earlier. If <code>.bashrc</code> doesn&#39;t show up, you can simply create it there.</p>
+            <p class="note">A Mac gotcha: OS X handles <code>bash</code> settings differently than linux/unix. I don&#39;t have time to get in the nitty-gritty here, but the summary is that you might have to edit a file called <code>.bash_profile</code> instead. </p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="customization"><strong>customization</strong></h1>
+            <h2 id="a-mac-os-x-gotcha">a Mac OS X gotcha</h2>
+            <p>
+                <del><code>.bashrc</code></del>
+            </p>
+            <p><code>.bash_profile</code> or <code>.profile</code></p>
+            <p>
+                <strong>.bash_profile, .profile, and .bashrc  conventions</strong>
+            </p>
+            <p>
+                <cite>
+                    <a href="http://dghubble.com/blog/posts/.bashprofile-.profile-and-.bashrc-conventions/">http://dghubble.com/blog/posts/.bashprofile-.profile-and-.bashrc-conventions/</a>
+                </cite>
+            </p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="a-list-of-common-text-editors">a list of common <strong>text editors</strong></h1>
+            <h1 id="vim">vim</h1>
+            <h1 id="emacs">emacs</h1>
+            <h1 id="nano">nano</h1>
+            <h1 id="pico">pico</h1>
+        </div>
+        <div class="notes">
+            <p class="note">One or more of these editors will probably be installed on most shells you might use.</p>
+            <p class="note"><code>vim</code> and <code>emacs</code> are the biggest two -- they&#39;re powerful, complex, and almost infinitely customizable. People also feel really, really passionate about them, so it&#39;s a good way to start a nerd war by asking what someone prefers. </p>
+            <p class="note">There are also &quot;smaller&quot; editors like <code>nano</code> and <code>pico</code> that are less powerful, have fewer configuration options, and might be more approachable to begin with, so you might start there with exploring them. I stuck with <code>nano</code> for a really, really, really long time. <code>vim</code> has been only a very recent exploration for me, in the past year.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="customization-editing-bashrc"><strong>customization: editing</strong> <code>.bashrc</code></h1>
+        </div>
+        <div class="notes">
+            <p class="note">So to edit the <code>.bashrc</code>, I&#39;m going to type <code>vim - space</code> followed by the path to the <code>.bashrc</code> file: <code>tilde - slash - dot - bashrc</code></p>
+            <p class="note"><code>vim ~/.bashrc</code></p>
+            <p class="note">This opens <code>vim</code>. To get into editing mode, I press the <code>i</code> key, and then paste in the prompt that we just figured out. To save, I (not intuitively whatsoever) press the escape key, and then enter the characters &quot;colon w q&quot;, which means &quot;write quit&quot;, saving the file and exiting <code>vim</code>.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content" id="customize-do-docs">
+            <blockquote>
+                <h3>How to Customize your Bash Prompt on a Linux VPS</h3>
+                <p><cite><a href="https://www.digitalocean.com/community/tutorials/how-to-customize-your-bash-prompt-on-a-linux-vps">https://www.digitalocean.com/community/tutorials/how-to-customize-your-bash-prompt-on-a-linux-vps</a></cite></p>
+            </blockquote>
+        </div>
+        <div class="notes">
+            <p class="note">I want to move on to the other two shells that I wanted to introduce to you today, but most of these things we&#39;ve gone through with <code>bash</code> will be applicable to <code>zsh</code> and <code>fish</code> as well. If you want to get going with <code>bash</code>, there are a lot of great resources to help you customize it out there. This Digital Ocean article, &quot;How to Customize your Bash Prompt on a Linux VPS&quot; by Jusin Ellingwood has some Linux-specific stuff at the beginning, but the later information on customizing <code>bash</code> is general and really approachable, and gets in to adding color to your <code>bash</code> prompt.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="zsh"><code>zsh</code></h1>
+            <h2 id="http-www-zsh-org"><a href="http://www.zsh.org">http://www.zsh.org</a></h2>
+        </div>
+        <div class="notes">
+            <p class="note">So let&#39;s talk about <code>zsh</code></p>
+            <p class="note">How to install: you can find installation instructions at <a href="http://www.zsh.org">zsh.org</a></p>
+            <p class="note">Switching to <code>zsh</code> from <code>bash</code> is as easy as typing &quot;zsh&quot; at into the terminal. You may have to add a configuration line somewhere to make this new shell your default shell.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="zsh-vs-bash"><code>zsh</code> vs. <code>bash</code></h1>
+            <p><img src="https://dl.dropboxusercontent.com/u/37968874/img/osbridge/bash-evolving.png" alt="inline"></p>
+        </div>
+        <div class="notes">
+            <p class="note">It is an evolution of <code>bash</code>.</p>
+            <p class="note">99% of the things you can do with <code>bash</code>, you can do with <code>zsh</code>. Plus! A few more features. Here are just a couple of the enhancements:...</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="zsh-tab-completions"><code>zsh</code>: tab completions</h1>
+            <p><img src="http://code.joejag.com/assets/2014/cd_after.jpg" alt="inline"></p>
+            <p><a href="http://code.joejag.com/2014/why-zsh.html">http://code.joejag.com/2014/why-zsh.html</a></p>
+        </div>
+        <div class="notes">
+            <p class="note">If you type &quot;cd&quot; and press tab, <code>zsh</code> will show you valid directories to go from there.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="zsh-command-history"><code>zsh</code>: command history</h1>
+            <p><img src="https://dl.dropboxusercontent.com/u/37968874/img/osbridge/zsh-up-history.gif" alt="inline"></p>
+        </div>
+        <div class="notes">
+            <p class="note">In <code>bash</code>, if you press the up key, you can see your previous commands. In <code>zsh</code>, you can type a command, and then press the up key, and see the things you&#39;ve run previously with that command.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="oh-my-zsh"><strong>oh my zsh</strong></h1>
+            <h2 id="the-shell-framework">the shell framework</h2>
+            <h3 id="http-ohmyz-sh"><a href="http://ohmyz.sh/">http://ohmyz.sh/</a></h3>
+            <h3 id="https-github-com-robbyrussell-oh-my-zsh"><a href="https://github.com/robbyrussell/oh-my-zsh">https://github.com/robbyrussell/oh-my-zsh</a></h3>
+        </div>
+        <div class="notes">
+            <p class="note">A huge repository of plugins and themes.</p>
+            <p class="note">Under active development on github, tons of contributors, and even has stickers and t-shirts, if that&#39;s any indication of its popularity</p>
+            <p class="note">Installing it is pretty easy; from the homepage they have a command you can copy to download and execute it (remember how I said to be careful with who you download from? I trusted oh-my-zsh, but you don&#39;t have to!)</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="installing-oh-my-zsh"><strong>installing</strong> <code>oh my zsh</code></h1>
+            <p><img src="https://dl.dropboxusercontent.com/u/37968874/img/osbridge/install-zsh.gif" alt="inline"></p>
+        </div>
+        <div class="notes">
+            <p class="note">It&#39;ll set <code>zsh</code> as your default shell for you.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="customizing-zsh-with-oh-my-zsh"><strong>customizing</strong> <code>zsh</code> with <code>oh my zsh</code></h1>
+            <p><img src="https://dl.dropboxusercontent.com/u/37968874/img/osbridge/zsh-theme-prompt-choose.png" alt="inline"></p>
+        </div>
+        <div class="notes">
+            <p class="note">Much like editing the <code>.bashrc</code>, <code>zsh</code> edits its preferences with a <code>.zshrc</code> file located in the home folder. <code>oh my zsh</code> has a ton of themes with cool colors and prompts that come with its installation, and choosing a new theme is as easy as editing the <code>.zshrc</code> file, finding the line with the <code>ZSH_THEME</code> variable, and setting it to the theme of your choosing. You can find a list of all its themes in a link from the <code>oh my zsh</code> homepage.</p>
+            <p class="note">Now, zsh is great and all, but what I really actually wanted to come here to talk about today is...</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h2 id="fish"><code>fish</code></h2>
+        </div>
+        <div class="notes">
+            <p class="note">The friendly shell!!</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="finally-a-command-line-for-the-90-s">finally a command line for the 90&#39;s</h1>
+            <p>
+                <img src="./pics/fish_shell.png" alt="inline">
+            </p>
+        </div>
+        <div class="notes">
+            <p class="note">Don&#39;t let the (admittedly adorable) text put you off, like <code>zsh</code>, <code>fish</code> is under active development on GitHub.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="installing-fish-os"><strong>installing</strong> <code>fish</code></h1>
+            <p>
+                <img src="./pics/fish-install-osx.png" alt="inline">
+            </p>
+            <p>fishshell.com</p>
+        </div>
+        <div class="notes">
+            <p class="note"><code>fish</code> shell has installers for a ton of major platforms. If you&#39;re using homebrew on mac os, it&#39;s as easy as running the command <code>brew install fish</code> from your terminal.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content" id="installing-fish-win-lin">
+            <h1 id="installing-fish"><strong>installing</strong> <code>fish</code></h1>
+            <p>
+                <img src="./pics/fish-install-linux.png" alt="inline">
+                <img src="./pics/fish-install-win.png" alt="">
+            </p>
+            <p>fishshell.com</p>
+        </div>
+        <div class="notes">
+            <p class="note">There are also package installers for Mac OS, lots of flavors of Linux, and Cygwin on Windows, all on the homepage at <a href="http://www.fishshell.com">fishshell.com</a></p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="fish-colors"><code>fish</code>: colors</h1>
+            <p>
+                <img src="./pics/fish-colors.png" alt="inline">
+            </p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="fish-command-history"><code>fish</code>: command history</h1>
+            <p>
+                <img src="http://fishshell.com/assets/img/screenshots/autosuggestion.png" alt="inline">
+            </p>
+        </div>
+        <div class="notes">
+            <p class="note"><code>fish</code> saves your commands, so if you&#39;ve painstakingly typed in a long command before, it&#39;ll remember it and suggest it to you the next time. Much like <code>zsh</code>, but it&#39;ll suggest things for you right as you type.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="fish-man-page-completions"><code>fish</code>: <code>man</code> page completions</h1>
+            <p>
+                <img src="http://fishshell.com/assets/img/screenshots/man_completions.png" alt="inline">
+            </p>
+        </div>
+        <div class="notes">
+            <p class="note">If you type a command and then a dash, <code>fish</code> will print out a quick summary of all the possible options you can apply right inline, so you don&#39;t have to go into the man page view.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="fish-usage"><code>fish</code>: usage</h1>
+            <p>
+                <img src="https://dl.dropboxusercontent.com/u/37968874/img/osbridge/fish-completions.gif" alt="inline">
+            </p>
+        </div>
+        <div class="notes">
+            <p class="note">One of the most powerful things about <code>fish</code>, in my experience, is its active autocompletions. You might be taken aback at first by all this text flashing at you as you build a command, but this sort of realtime feedback has been just invaluable to me becoming more comfortable on the command line. </p>
+            <p class="note">Commands are red until they are valid, and they become blue. You can tab to complete the suggestion partway, you can tab to see valid places in folders. <code>fish</code> tries to give you as much information as possible as you go.</p>
+            <p class="note"><code>zsh</code> has a lot of the same features, but it&#39;s really the realtime feedback that makes it so compelling for me.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="customizing-fish"><strong>customizing</strong> <code>fish</code></h1>
+            <p><img src="https://dl.dropboxusercontent.com/u/37968874/img/osbridge/fish-config.gif" alt="inline"></p>
+        </div>
+        <div class="notes">
+            <p class="note"><code>fish</code> also has a cool interactive way to set and customize your themes. if you run the command <code>fish underscore config</code>, it&#39;ll open a local web application in your browser</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="customizing-fish"><strong>customizing</strong> <code>fish</code></h1>
+            <p>
+                <img src="https://dl.dropboxusercontent.com/u/37968874/img/osbridge/fish_shell_configuration.png" alt="inline">
+            </p>
+        </div>
+        <div class="notes">
+            <p class="note">Here you can use an actual interface(!) to select colors, themes, and functions. It&#39;s also a great place to use as a springboard for your own customizations.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="oh-my-fish">oh my fish</h1>
+            <p><img src="https://cloud.githubusercontent.com/assets/958723/6883431/9beb62b0-d58b-11e4-902c-2f716859a7ad.png" alt="inline"></p>
+            <p><a href="https://github.com/oh-my-fish/oh-my-fish">https://github.com/oh-my-fish/oh-my-fish</a></p>
+        </div>
+        <div class="notes">
+            <p class="note">If you are looking for more managed solutions to customizing <code>fish</code>, there are some frameworks out there, like "oh my fish" (inspired, of course, by <code>zsh</code>).</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="fish-gotchas"><code>fish</code> <strong>gotchas</strong></h1>
+            <h2 id="sublist-separators">sublist separators</h2>
+            <p>
+                <pre><code>bash$: git clone https://github.com/llkats/sample; &amp;&amp; cd sample</code></pre>
+                <pre><code>fish$: git clone https://github.com/llkats/sample; and cd sample</code> </pre>
+            </p>
+        </div>
+        <div class="notes">
+            <p class="note">Unlike <code>bash</code> and <code>zsh</code> which have clear legacies going back to the Bourne shell, <code>fish</code> took a wholly different approach, and so it has some syntax incompatibilities with <code>bash</code> and <code>zsh</code>. You have to learn how to declare and script the <code>fish</code> way, and that can have some downsides.</p>
+            <p class="note">Just a small example is the sublist operator (as zsh calls it). You can run multiple commands in sequence in <code>bash</code> and <code>zsh</code> with the <code>ampersand ampersand</code> operator; for example, you can <code>git clone</code> a new repository and the immediately <code>cd</code> into the new folder that git created in one command. But in <code>fish</code>, you have to actually type the word &quot;and&quot; instead of the ampersands, and that&#39;s just one example.</p>
+            <p class="note">Since <code>fish</code> is not as popular as <code>bash</code>, sometimes certain command-line tools or open source projects might not have <code>fish</code> support. Or you might find a neat shell script someone wrote, but then need to tweak or change it so <code>fish</code> is happy.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="hyperpolyglot">hyperpolyglot</h1>
+            <p><a href="http://hyperpolyglot.org/unix-shells">http://hyperpolyglot.org/unix-shells</a></p>
+            <p>
+                <img src="https://dl.dropboxusercontent.com/u/37968874/img/osbridge/hyperpolyglot.png" alt="inline">
+            </p>
+        </div>
+
+        <div class="notes">
+            <p class="note">Hyperpolyglot: a fantastic site for cross-shell translations with grids of sample commands and operations and their translations across all sorts of shells.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <p>
+                <img src="https://dl.dropboxusercontent.com/u/37968874/img/osbridge/fish-usage-1.gif" alt="inline">
+            </p>
+        </div>
+        <div class="notes"><p class="note">A small demonstration of using <code>fish</code> with autocompletions and color coding hints.</p></div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="use-the-tool-for-the-job">use the tool for the job</h1>
+                <p><code>bash</code>: hella customizable and super prevalent</p>
+                <p><code>zsh</code>: all that <code>bash</code> plus customizability and more </p>
+                <p><code>fish</code>: helpful out of the pkg</p>
+        </div>
+        <div class="notes">
+            <p class="note">In the end, what you use is up to you. They all have their pros and cons; you might start out with <code>bash</code> because that&#39;s what&#39;s already installed; you might take the leap for <code>fish</code>. The world is your oyster shell.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="next-steps">next steps</h1>
+        </div>
+        <div class="notes">
+            <p class="note">IE, stuff I could&#39;t fit into my presentation.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="concepts-redirection-and-pipes"><strong>concepts</strong>: redirection and pipes</h1>
+            <h2 id="stdin-stdout-stderr">stdin, stdout, stderr</h2>
+<pre><code class="lang-bash">grep -Po <span class="hljs-string">'filename=\S*'</span> /sample/path/example.log
+| cut <span class="hljs-operator">-d</span>= <span class="hljs-operator">-f</span>2- | sed -r <span class="hljs-string">'s/.*(\.[^.]+)$/\1/'</span>
+| tr A-Z a-z | sort | uniq -c |
+sort -rn | less
+</code></pre>
+        </div>
+        <div class="notes">
+            <p class="note">Once you start getting comfortable with some commands, you might find the concepts of redirection, piping, and understanding standard in, standard out, and standard error really useful. These things all allow you to combine commands for huge effect.</p>
+            <p class="note">This command is a something that a coworker shared with me, that parses a log file and counts the number of file occurrences by extension type that appear from greatest to least.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="dotfiles-on-github">dotfiles on github</h1>
+            <p>
+                <img src="https://dl.dropboxusercontent.com/u/37968874/img/osbridge/github-dotfiles.png" alt="inline">
+            </p>
+        </div>
+
+        <div class="notes">
+            <p class="note">If you want to look more into how people customize their prompts, I encourage you to search for the word &quot;dotfiles&quot; on github. a lot of people have put their configuration files online, and it&#39;s a great place to get inspiration or &quot;borrow&quot; some scripts.</p>
+            <p class="note">If you get inspired and want to put your own dotfiles online, make sure you don&#39;t put anything sensitive like ssh keys online!</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="fun-open-source-shell-projects">fun open source shell projects</h1>
+            <h2 id="doge-shell"></h2>
+            <p><img src="https://pbs.twimg.com/media/BlhwVLmCYAAXqT9.png" alt="very screenshot of doge in a shell, much wow"></p>
+            <p><a href="https://github.com/thiderman/doge">https://github.com/thiderman/doge</a></p>
+        </div>
+        <div class="notes">
+            <p class="note"><a href="https://github.com/thiderman/doge">doge shell</a> is a fun little startup script that greets you every time you open your shell.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="fun-open-source-shell-projects">fun open source shell projects</h1>
+            <p>
+                <img src="./prompts/lauradegroot.png" alt="inline">
+                <img src="./prompts/bwinton.png" alt="inline">
+            </p>
+            <p>@lauradegroot</p>
+            <p>@bwinton</p>
+            <p><a href="https://github.com/rmillr/moonmoji">https://github.com/rmillr/moonmoji</a></p>
+        </div>
+        <div class="notes">
+            <p class="note"><a href="https://github.com/rmillr/moonmoji">moonmoji</a> puts the current moon phase into your prompt.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="fun-open-source-shell-projects">fun open source shell projects</h1>
+            <p><img src="https://dl.dropboxusercontent.com/u/37968874/img/osbridge/prompts/bash-bretolius.png" alt="inline"></p>
+            <p>@bretolius</p>
+            <p><a href="https://github.com/Flet/clockmoji">https://github.com/Flet/clockmoji</a></p>
+        </div>
+        <div class="notes">
+            <p class="note">Similar to moonmoji, <a href="https://github.com/Flet/clockmoji">clockmoji</a> puts the current time in your prompt.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="moar-shell-widgets">moar shell widgets!</h1>
+            <p><a href="https://github.com/alebcay/awesome-shell">https://github.com/alebcay/awesome-shell</a> (bash, zsh)</p>
+        </div>
+        <div class="notes">
+            <p class="note">Here's a <a href="https://github.com/alebcay/awesome-shell">link to a curated list of cool shell things</a> on github; there are many, many more out there.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="resources">resources</h1>
+            <p>Digital Ocean Documentation</p>
+            <p><a href="http://www.catb.org/~esr/writings/taouu/html/ch02s01.html">Eric Raymond&#39;s writings</a></p>
+            <p>Jessica Dillon&#39;s Quickleft posts and ebook</p>
+        </div>
+        <div class="notes">
+            <p class="note">The <a href="https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps">documentation at Digital Ocean</a> is particularly good, even if you aren&#39;t building anything on their services, it&#39;s general enough to get great info from.</p>
+            <p class="note">Eric Raymond has a <a href="http://www.catb.org/~esr/writings/taouu/html/ch02s01.html">bunch of his writings open-sourced online</a>, if you want to learn more about the history, development, and philosophy of Unix.</p>
+            <p class="note">Jessica Dillon wrote a <a href="https://quickleft.com/blog/command-line-tutorials-summary-what-s-next/">great series of blog posts for Quickleft on beginning with the command line</a>, which were recently compiled into an <a href="https://leanpub.com/just-enough-unix-command-line">ebook you can get at Leanpub</a>.</p>
+        </div>
+    </article>
+
+    <article class="slide">
+        <div class="content">
+            <h1 id="special-thanks">special thanks</h1>
+            <ul>
+                <li>the organizers and volunteers of OS Bridge</li>
+                <li>my coworkers at craigslist</li>
+                <li>@rmurphey</li>
+                <li class="twitters"><a href="http://twitter.com/bwinton">@bwinton</a>, <a href="http://twitter.com/muanchiou">@muanchiou</a>, <a href="http://twitter.com/jackyalcine">@jackyalcine</a>, <a href="http://twitter.com/jennschiffer">@jennschiffer</a>, <a href="http://twitter.com/apblardo">@apblardo</a>, <a href="http://twitter.com/jllord">@jllord</a>, <a href="http://twitter.com/ekrubnivek">@ekrubnivek</a>, <a href="http://www.twitter.com/RandallAGordon">@RandallAGordon</a>, <a href="http://twitter.com/bretolius">@bretolius</a>, <a href="http://twitter.com/makenai">@makenai</a>, <a href="http://twitter.com/McDonnellDean">@McDonnellDean</a>, <a href="http://twitter.com/rmill">@rmill</a>, <a href="http://www.twitter.com/waferbaby">@waferbaby</a>, <a href="http://www.twitter.com/notwaldorf">@notwaldorf</a>, <a href="http://www.twitter.com/rhodesjason">@rhodesjason</a>, <a href="http://www.twitter.com/maxogden">@maxogden</a>, <a href="http://www.twitter.com/josh_triplett">@josh_triplett</a>, <a href="http://twitter.com/potch">@potch</a>, <a href="http://twitter.com/lauradegroot">@lauradegroot</a>, <a href="http://twitter.com/adcadien">@adcadien</a>, <a href="http://twitter.com/_daveg">@_daveg</a>, <a href="http://twitter.com/jergason">@jergason</a>, <a href="http://twitter.com/saikobee">@saikobee</a>, <a href="http://twitter.com/dam">@dam</a>, <a href="http://twitter.com/richardiii">@richardiii</a>, <a href="http://twitter.com/gggritso">@gggritso</a>, <a href="http://twitter.com/jonmagic">@jonmagic</a>, <a href="http://twitter.com/aredridel">@aredridel</a>, <a href="http://twitter.com/dbaker_h">@dbaker_h</a>, <a href="http://twitter.com/inky">@inky</a>, <a href="http://twitter.com/jonursenbach">@jonursenbach</a>, <a href="http://twitter.com/jergason">@jergason</a>, <a href="http://twitter.com/jedireza">@jedireza</a>, <a href="http://twitter.com/thealphanerd">@thealphanerd</a>, <a href="http://twitter.com/zeke">@zeke</a>, <a href="http://twitter.com/JdotJdotF">@JdotJdotF</a>, <a href="http://twitter.com/izs">@izs</a></li>
+                <li>Alex Dergachev, <a href="https://github.com/dergachev/screengif">https://github.com/dergachev/screengif</a></li>
+                <li>to you!</li>
+            </ul>
+        </div>
+        <div class="notes">
+            <p class="note">I just want to quickly thank some people: to the organizers and volunteers of Open Source Bridge, thank you for this event.</p>
+            <p class="note">Special shoutout to my coworkers who saw a very rough version of this talk, gave me invaluable feedback, and sent me that awesome example of a long piped command.</p>
+            <p class="note">To Rebecca Murphey for the mentorship suggestions that led me to submitting this topic to Open Source Bridge.</p>
+            <p class="note">To all of these great folks on Twitter who sent me their awesome shell prompts.</p>
+            <p class="note">Alex Dergachev&#39;s great command-line movie-to-gif conversion tool, which featured prominently in many of the examples I created for this talk.</p>
+            <p class="note">And to all of you for attending and sticking through this talk, I hope you learned something!</p>
+        </div>
+    </article>
+
+    <article class="slide thanks">
+        <div class="content has-background-image" id="cheers">
+            <h1>thanks</h1>
+        </div>
+    </article>
+
+    <footer class="created-by">
+        <div class="notes">
+            <p class="note">Slides created with Markdown and <a href="http://www.decksetapp.com/">Deckset</a>.</p>
+            <p class="note">HTML generated with <a href="http://dillinger.io/">Dillinger</a>.</p>
+            <div class="note">&#9774;</div>
+        </div>
+    </footer>
+</section>
+</body>
+
+</html>
