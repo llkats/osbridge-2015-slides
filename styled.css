@@ -5023,6 +5023,7 @@ img {
 
 /* custom styles */
 header {
+    margin-bottom: 5em;
     text-align: center;
 }
 
